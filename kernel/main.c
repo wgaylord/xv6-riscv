@@ -6,17 +6,21 @@
 
 volatile static int started = 0;
 
+void *fdt_start = 0;
+
 // start() jumps here in supervisor mode on all CPUs.
 void
 main()
 {
   if(cpuid() == 0){
+    fdt_start = (void*)r_t4();
     consoleinit();
     printfinit();
     printf("\n");
     printf("xv6 kernel is booting\n");
     printf("\n");
-    kinit();         // physical page allocator
+    kinit(fdt_start);         // physical page allocator
+    device_tree_init(fdt_start);
     kvminit();       // create kernel page table
     kvminithart();   // turn on paging
     procinit();      // process table

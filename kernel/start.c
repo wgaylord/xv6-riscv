@@ -20,6 +20,7 @@ extern void timervec();
 void
 start()
 {
+  
   // set M Previous Privilege mode to Supervisor, for mret.
   unsigned long x = r_mstatus();
   x &= ~MSTATUS_MPP_MASK;
@@ -48,8 +49,7 @@ start()
 
   // keep each CPU's hartid in its tp register, for cpuid().
   int id = r_mhartid();
-  w_tp(id);
-
+  w_tp(id); 
   // switch to supervisor mode and jump to main().
   asm volatile("mret");
 }

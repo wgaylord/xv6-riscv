@@ -311,6 +311,17 @@ w_tp(uint64 x)
   asm volatile("mv tp, %0" : : "r" (x));
 }
 
+
+// read and write s11, 
+static inline uint32*
+r_t4()
+{
+  uint32* x;
+  asm volatile("mv %0, t4" : "=r" (x) );
+  return x;
+}
+
+
 static inline uint64
 r_ra()
 {

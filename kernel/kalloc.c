@@ -24,10 +24,10 @@ struct {
 } kmem;
 
 void
-kinit()
+kinit(void *fdt_start)
 {
   initlock(&kmem.lock, "kmem");
-  freerange(end, (void*)PHYSTOP);
+  freerange(end, fdt_start);
 }
 
 void
